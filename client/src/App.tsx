@@ -1,12 +1,22 @@
-import { useState } from "react";
-import "./App.css";
+import "./App.scss";
+import Navigatorbar from "./component/navbar/Navigatorbar";
 import Router from "./route/Router";
-import { BrowserRouter } from "react-router-dom";
+import { Layout } from "antd";
+
+const { Header, Footer, Content } = Layout;
 
 export function App() {
   return (
     <>
-      <Router />
+      <Layout className="layout">
+        <Header className="header">
+          <Navigatorbar />
+        </Header>
+        <Content className="content">
+          <Router />
+        </Content>
+        <Footer className="footer"></Footer>
+      </Layout>
     </>
   );
 }
