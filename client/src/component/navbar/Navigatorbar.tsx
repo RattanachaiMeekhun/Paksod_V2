@@ -1,22 +1,34 @@
-import { Button, Menu } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Button, Col, Menu, Row } from "antd";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/LOGO.webp";
 
-type Props = {};
-
 const Navigatorbar = () => {
+  const navigate = useNavigate();
   return (
-    <>
-      <Link to="/" onClick={() => {}}>
-        <img src={logo} className="logo" alt={"logo"} />
-      </Link>
-      <div className="nav-group">
+    <Row justify={"space-between"} align={"middle"}>
+      <Col xs={12} sm={9} lg={13} xl={15} xxl={17} style={{ display: "flex" }}>
+        <Link to={"/"}>
+          <img
+            src={logo}
+            alt={"logo"}
+            style={{ position: "absolute", top: -20 }}
+          />
+        </Link>
+      </Col>
+      <Col
+        xs={8}
+        sm={12}
+        lg={9}
+        xl={7}
+        xxl={5}
+        style={{ display: "flex", justifyContent: "end" }}
+      >
         <Menu
           theme="light"
           defaultSelectedKeys={["1"]}
           mode="horizontal"
-          style={{ minWidth: 373 }}
+          style={{ width: "100%" }}
           items={[
             {
               key: "1",
@@ -36,9 +48,19 @@ const Navigatorbar = () => {
             },
           ]}
         />
-        <Button type="primary">เข้าสู่ระบบ</Button>
-      </div>
-    </>
+      </Col>
+      <Col xs={5} sm={3} lg={2} xl={2} xxl={2}>
+        <Button
+          className="login-btn"
+          type="primary"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          เข้าสู่ระบบ
+        </Button>
+      </Col>
+    </Row>
   );
 };
 

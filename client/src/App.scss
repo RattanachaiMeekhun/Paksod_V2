@@ -1,4 +1,4 @@
-$primary-color: #5cb30b;
+@import "variables";
 
 #root {
   height: 100%;
@@ -8,24 +8,56 @@ $primary-color: #5cb30b;
 }
 
 .logo {
-  padding: 1.5em;
   will-change: filter;
   position: absolute;
-  top: -1em;
-  &:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
+  top: -1.5rem;
+  // &:hover {
+  //   filter: drop-shadow(0 0 2em #646cffaa);
+  // }
 }
 
 .ant-menu-item {
   color: $primary-color;
+  border-bottom-color: $primary-color !important;
+
   &.ant-menu-item-selected {
-    color: $primary-color;
+    color: $primary-color !important;
+    border-bottom-color: $primary-color !important;
+  }
+
+  &.ant-menu-item-selected::after {
+    border-bottom-color: $primary-color !important;
+  }
+
+  &:hover {
+    color: $primary-color !important;
+    border-bottom-color: $primary-color !important;
+    &::after {
+      border-bottom-color: $primary-color !important;
+    }
   }
 }
 
 .ant-btn-primary {
   background-color: $primary-color;
+  &:hover {
+    background-color: $primary-color-hover !important;
+  }
+}
+
+.ant-btn-default {
+  border: 0px;
+  &.line-theme {
+    color: hsla(120, 100%, 36%, 1);
+    display: flex;
+    justify-content: center;
+    &:hover {
+      color: rgba(0, 184, 0, 0.493) !important;
+    }
+  }
+  &:hover {
+    background-color: #d9d9d95e;
+  }
 }
 
 .layout {
@@ -33,9 +65,9 @@ $primary-color: #5cb30b;
   color: #fff;
   min-height: 100vh;
   & > .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
     height: 64px;
     padding-inline: 10px;
     background-color: #ffffff;
@@ -44,19 +76,44 @@ $primary-color: #5cb30b;
     z-index: 100;
   }
 
-  & > .header > .nav-group {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    column-gap: 10px;
-  }
-
   & > .content {
-    margin: 10;
+    margin: 10px;
     padding: 20px;
   }
 
   & > .footer {
     background-color: $primary-color;
   }
+}
+
+.login-page {
+  background-image: url("/src/assets/loginbackdrop.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  & > .title {
+    color: black;
+  }
+  & > .form {
+    background-color: hsla(91, 88%, 37%, 0.05);
+    height: fit-content;
+    border-radius: 6px;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+}
+
+.text-title {
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  column-gap: 5px;
+  color: #a9c545;
 }

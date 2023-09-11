@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import "./App.scss";
 import Navigatorbar from "./component/navbar/Navigatorbar";
 import Router from "./route/Router";
