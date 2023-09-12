@@ -1,11 +1,10 @@
 import { UnlockOutlined, UserOutlined } from "@ant-design/icons";
-import { Alert, Button, Col, Divider, Input, Row } from "antd";
+import { Button, Col, Divider, Input, Row } from "antd";
 import { Link } from "react-router-dom";
 import logo from "../../assets/LOGO_login.webp";
 import Icon from "@ant-design/icons";
 import { CustomIconComponentProps } from "@ant-design/icons/lib/components/Icon";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { error } from "console";
+import { Controller, useForm } from "react-hook-form";
 
 const lineIcon = () => (
   <svg
@@ -84,11 +83,9 @@ const LoginContent = () => {
                       status={error && "error"}
                       {...field}
                     />
-                    {error && (
-                      <span key={"err-username"} style={{ color: "red" }}>
-                        {error.message}
-                      </span>
-                    )}
+                    <div role={"err-username"} style={{ color: "red" }}>
+                      {error && <>{error.message}</>}
+                    </div>
                   </>
                 )}
               />
@@ -132,7 +129,8 @@ const LoginContent = () => {
           <Row justify={"center"} align={"stretch"}>
             <Col span={20}>
               <Button
-                id="signin"
+                name="signin"
+                role="button"
                 type="primary"
                 htmlType="submit"
                 style={{ width: "100%" }}

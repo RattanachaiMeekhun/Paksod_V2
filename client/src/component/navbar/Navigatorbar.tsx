@@ -33,6 +33,9 @@ const Navigatorbar = () => {
             {
               key: "1",
               label: "หน้าแรก",
+              onClick: () => {
+                navigate("/");
+              },
             },
             {
               key: "2",
