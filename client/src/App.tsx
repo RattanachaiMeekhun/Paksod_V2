@@ -3,21 +3,24 @@ import "./App.scss";
 import Navigatorbar from "./component/navbar/Navigatorbar";
 import Router from "./route/Router";
 import { Layout } from "antd";
+import { AlertContextProvider } from "./context/AlertContext";
 
 const { Header, Footer, Content } = Layout;
 
 export function App() {
   return (
     <>
-      <Layout className="layout">
-        <Header className="header">
-          <Navigatorbar />
-        </Header>
-        <Content className="content">
-          <Router />
-        </Content>
-        <Footer className="footer"></Footer>
-      </Layout>
+      <AlertContextProvider>
+        <Layout className="layout">
+          <Header className="header">
+            <Navigatorbar />
+          </Header>
+          <Content className="content">
+            <Router />
+          </Content>
+          <Footer className="footer"></Footer>
+        </Layout>
+      </AlertContextProvider>
     </>
   );
 }

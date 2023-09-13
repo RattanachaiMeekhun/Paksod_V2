@@ -1,17 +1,52 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import LoginContent from "./LoginContent";
+import { setupServer } from "msw/node";
+import { rest } from "msw";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import LoginContent from "./LoginContent";
 
-test("should require Username and Password", async () => {
+const server = setupServer(
+  rest.get("/api", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        status: "success",
+      })
+    );
+  })
+);
+
+beforeAll(() => server.listen());
+afterAll(() => server.resetHandlers());
+afterAll(() => server.close());
+
+test("Should require Username and Password.", async () => {
   render(
     <BrowserRouter>
       <LoginContent />
     </BrowserRouter>
   );
   const signinBtn = screen.getByText("Sign-in");
-  // if (signinBtn) {
   expect(signinBtn).toBeDefined();
   fireEvent.click(signinBtn);
-  const msg = screen.getByRole("err-username");
-  await waitFor(() => expect(msg).toHaveTextContent("Username is required"));
+  await waitFor(() => {
+    const errUser = screen.getByRole("err-username");
+    const errPass = screen.getByRole("err-password");
+    expect(errUser).toHaveTextContent("Username is required");
+    expect(errPass).toHaveTextContent("Password is required");
+  });
+});
+
+test("Wrong user login", async () => {
+  render(
+    <BrowserRouter>
+      <LoginContent />
+    </BrowserRouter>
+  );
+  const useernameBox = screen.getByPlaceholderText("Username");
+  const passwordBox = screen.getByPlaceholderText("Password");
+
+  fireEvent.change(useernameBox, { target: { value: "test" } });
+  fireEvent.change(passwordBox, { target: { value: "test" } });
+  expect(useernameBox).toHaveTextContent("test");
+  expect(passwordBox).toHaveTextContent("test");
 });

@@ -1,7 +1,6 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
-import HomeContent from "../content/HomePage/HomeContent";
-import LoginContent from "../content/LoginPage/LoginContent";
+import HomeContent from "../content/homepage/HomeContent";
+import LoginContent from "../content/loginpage/LoginContent";
 
 type Props = {};
 

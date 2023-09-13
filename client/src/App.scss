@@ -38,6 +38,17 @@
   }
 }
 
+.ant-menu-submenu {
+  color: $primary-color;
+  &:hover {
+    color: $primary-color !important;
+    border-bottom-color: $primary-color !important;
+    &::after {
+      border-bottom-color: $primary-color !important;
+    }
+  }
+}
+
 .ant-btn-primary {
   background-color: $primary-color;
   &:hover {

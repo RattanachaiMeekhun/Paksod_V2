@@ -5,6 +5,9 @@ import logo from "../../assets/LOGO_login.webp";
 import Icon from "@ant-design/icons";
 import { CustomIconComponentProps } from "@ant-design/icons/lib/components/Icon";
 import { Controller, useForm } from "react-hook-form";
+import { loginSerive } from "../../service/AuthService";
+import { notification } from "antd";
+import { useState } from "react";
 
 const lineIcon = () => (
   <svg
@@ -49,9 +52,17 @@ interface ILoginForm {
 
 const LoginContent = () => {
   const { register, handleSubmit, control } = useForm<ILoginForm>();
+  const [msgErr, setMsgErr] = useState<string>();
 
-  const onSubmit = (data: ILoginForm) => {
-    return alert(JSON.stringify(data));
+  const onSubmit = async (data: ILoginForm) => {
+    const res = await loginSerive(data);
+
+    if (res.token) {
+      console.log("res=>", res);
+      setMsgErr(undefined);
+    } else {
+      setMsgErr(res.message);
+    }
   };
 
   return (
@@ -80,12 +91,14 @@ const LoginContent = () => {
                       id="username"
                       type="text"
                       placeholder="Username"
-                      status={error && "error"}
+                      status={(error || msgErr) && "error"}
                       {...field}
                     />
-                    <div role={"err-username"} style={{ color: "red" }}>
-                      {error && <>{error.message}</>}
-                    </div>
+                    {error && (
+                      <div role={"err-username"} style={{ color: "red" }}>
+                        {error.message}{" "}
+                      </div>
+                    )}
                   </>
                 )}
               />
@@ -108,18 +121,24 @@ const LoginContent = () => {
                     <Input
                       id="password"
                       type="password"
-                      placeholder="password"
-                      status={error && "error"}
+                      placeholder="Password"
+                      status={(error || msgErr) && "error"}
                       {...field}
                     />
                     {error && (
-                      <span key={"err-password"} style={{ color: "red" }}>
+                      <div role={"err-password"} style={{ color: "red" }}>
                         {error.message}
-                      </span>
+                      </div>
                     )}
                   </>
                 )}
               />
+
+              {msgErr && (
+                <div role={"msgErr"} style={{ color: "red" }}>
+                  {msgErr}{" "}
+                </div>
+              )}
 
               <div style={{ width: "100%", textAlign: "end" }}>
                 <Link to={"/"}>forget password</Link>
